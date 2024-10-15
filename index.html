@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Request Example</title>
+</head>
+<body>
+    <h1>API Request with User Input</h1>
+    
+    <label for="payloadInput">Enter Payload:</label>
+    <input type="text" id="payloadInput" placeholder="Enter your query here">
+    <button onclick="sendRequest()">Send Request</button>
+
+    <p id="responseOutput"></p> <!-- Added for displaying the output -->
+
+    <script>
+        function sendRequest() {
+            const API_KEY = "PD5mzv4F.fOexzTnhRbZSS9QOmyVoqyJlxowjPVtK";
+            const url = "https://payload.vextapp.com/hook/GYCXY76XIZ/catch/hello";
+
+            const headers = {
+                "Content-Type": "application/json",
+                "Apikey": `Api-Key ${API_KEY}`
+            };
+
+            // Get the user input from the input field
+            const payloadInput = document.getElementById("payloadInput").value;
+
+            // Prepare data with user input
+            const data = {
+                "payload": payloadInput
+            };
+
+            fetch(url, {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(responseText => {
+                // Display the response on the web page
+                document.getElementById("responseOutput").innerText = `Response: ${responseText}`;
+                alert("Request completed successfully");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred");
+            });
+        }
+    </script>
+</body>
+</html>
